@@ -1,5 +1,10 @@
 import React from "react";
+<<<<<<< Updated upstream
 //import './NotefulForm.css'
+=======
+import "./NotefulForm.css";
+import PropTypes from "prop-types";
+>>>>>>> Stashed changes
 
 export default function NotefulForm(props) {
   const { className, ...otherProps } = props;
@@ -11,3 +16,7 @@ export default function NotefulForm(props) {
     />
   );
 }
+
+NotefulForm.propTypes = {
+  className: PropTypes.string,
+};

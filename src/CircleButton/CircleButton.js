@@ -1,5 +1,10 @@
 import React from "react";
+<<<<<<< Updated upstream
 //import ".CircleButton.css";
+=======
+import "./CircleButton.css";
+import PropTypes from "prop-types";
+>>>>>>> Stashed changes
 
 export default function NavCircleButton(props) {
   const { tag, className, children, ...otherProps } = props;
@@ -15,4 +20,11 @@ export default function NavCircleButton(props) {
 
 NavCircleButton.defaultProps = {
   tag: "a",
+};
+
+NavCircleButton.propTypes = {
+  tag: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  otherProps: PropTypes.object,
+  className: PropTypes.string,
+  children: PropTypes.array,
 };

@@ -2,7 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Note from "../Note/Note";
 import CircleButton from "../CircleButton/CircleButton";
+<<<<<<< Updated upstream
 //import "./NoteListMain.css";
+=======
+import ApiContext from "../ApiContext";
+import { getNotesForFolder } from "../notes-helpers";
+import "./NoteListMain.css";
+import PropTypes from "prop-types";
+>>>>>>> Stashed changes
 
 export default function NoteListMain(props) {
   return (
@@ -29,6 +36,11 @@ export default function NoteListMain(props) {
   );
 }
 
+<<<<<<< Updated upstream
 NoteListMain.defaultProps = {
   notes: [],
+=======
+NoteListMain.propTypes = {
+  match: PropTypes.object,
+>>>>>>> Stashed changes
 };

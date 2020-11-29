@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotePageNav component renders a NotePageNav by default 1`] = `
+<div
+  className="NotePageNav"
+>
+  <NavCircleButton
+    className="NotePageNav_back-button"
+    onClick={[Function]}
+    role="link"
+    tag="button"
+  >
+    Go
+    <br />
+    Back
+  </NavCircleButton>
+</div>
+`;
