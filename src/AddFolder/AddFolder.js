@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ApiContext from "../ApiContext";
 import config from "../config";
 import PropTypes from "prop-types";
-import NotefulForm from "../NotefulForm/NotefulForm";
 import "./AddFolder.css";
 
 export default class AddFolder extends Component {
@@ -17,13 +16,14 @@ export default class AddFolder extends Component {
       body: JSON.stringify({ name }),
     })
       .then((response) => {
-        if (!response.ok) {
+        if (!response.ok)
           return response.json().then((error) => Promise.reject(error));
-        } else {
-          return response.json();
-        }
+        return response.json();
       })
-      .then((data) => this.context.addFolder(data));
+      .then((data) => this.context.addFolder(data))
+      .catch((error) => {
+        console.error({ error });
+      });
   };
 
   handleSubmit = (event) => {
@@ -50,29 +50,28 @@ export default class AddFolder extends Component {
     return (
       <>
         <h2 className="add-folder-header">Create a folder</h2>
-        <NotefulForm>
-          <form
-            className="add-folder-form"
-            onSubmit={(event) => this.handleSubmit(event)}
-          >
-            <label htmlFor="newFolder">
-              {" "}
-              Name{" "}
-              {this.context.newFolder.touched && (
-                <p>{this.validateFolderName()}</p>
-              )}
-            </label>
-            <input
-              type="text"
-              name="newFolder"
-              id="newFolder"
-              aria-required="true"
-              aria-label="Name"
-              onChange={(event) => this.updateFolderName(event)}
-            />
-            <button type="submit">Add Folder</button>
-          </form>
-        </NotefulForm>
+
+        <form
+          className="add-folder-form"
+          onSubmit={(event) => this.handleSubmit(event)}
+        >
+          <label htmlFor="newFolder">
+            {" "}
+            Name{" "}
+            {this.context.newFolder.touched && (
+              <p>{this.validateFolderName()}</p>
+            )}
+          </label>
+          <input
+            type="text"
+            name="newFolder"
+            id="newFolder"
+            aria-required="true"
+            aria-label="Name"
+            onChange={(event) => this.updateFolderName(event)}
+          />
+          <button type="submit">Add Folder</button>
+        </form>
       </>
     );
   }
