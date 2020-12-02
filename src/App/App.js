@@ -131,7 +131,7 @@ class App extends Component {
       newFolder: this.state.newFolder,
       updateNewFolderName: this.updateNewFolderName,
       newNote: this.state.newNote,
-      handleAddNote: this.handleAddNote,
+      addNote: this.handleAddNote,
       updateNewNoteData: this.updateNewNoteData,
     };
     return (
