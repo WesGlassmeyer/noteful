@@ -3,43 +3,43 @@
   color: #dedede;
 }
 
+.add-note-form {
+  background-color: #1d3656;
+  color: #dedede;
+  padding: 16px;
+  max-width: 332px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  padding: 8px 0 8px 0;
+}
+
+input,
+textarea,
+select {
+  display: block;
+  font-size: 16px;
+  padding: 8px 0 8px 0;
+  width: 300px;
+}
+
 button {
   margin-top: 26px;
-}
-
-/*.add-note-header {
+  background-color: #010d1e;
+  border-radius: 4px;
+  border: 0;
   color: #cacaca;
-  padding: 10px;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
 }
 
-.add-note-form {
-  background-color: #102541;
-  color: #cacaca;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 500px;
-  padding: 10px;
+button[type="submit"]:hover {
+  background-color: #29862e;
+  color: white;
 }
-
-.add-note-form > * {
-  margin: 10px;
-}
-
-.add-note-form p {
-  color: red;
-  font-size: 1em;
-}
-
-.add-note-form input {
-  height: 25px;
-}
-
-.add-note-form button {
-  width: 100px;
-  height: 25px;
-  background-color: #cacaca;
-  color: #102541;
-  font-size: 1em;
-}*/
