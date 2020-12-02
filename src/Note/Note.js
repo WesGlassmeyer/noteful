@@ -13,7 +13,7 @@ export default class Note extends React.Component {
     e.preventDefault();
     const noteId = this.props.id;
 
-    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+    fetch(`${config.API_endpoint}/notes/${noteId}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -21,11 +21,10 @@ export default class Note extends React.Component {
     })
       .then((res) => {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
-        // return res.json()
+        return res.json();
       })
       .then(() => {
         this.context.deleteNote(noteId);
-        this.props.onDeleteNote(noteId);
       })
       .catch((error) => {
         console.error({ error });
@@ -33,7 +32,6 @@ export default class Note extends React.Component {
   };
 
   render() {
-    console.log(this.context.deleteNote);
     const { name, id, modified } = this.props;
     return (
       <div className="Note">
@@ -65,5 +63,5 @@ Note.propTypes = {
   onDeleteNote: PropTypes.func,
   id: PropTypes.string,
   name: PropTypes.string,
-  modified: PropTypes.string,
+  modified: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 };
