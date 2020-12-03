@@ -40,7 +40,7 @@ export default class AddNote extends Component {
     const newNote = {
       name: event.target.name.value,
       content: event.target.content.value,
-      folder_id: event.target.folders.value,
+      folderId: event.target.folders.value,
       modified: new Date(),
     };
     this.addNote(newNote);
