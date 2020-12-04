@@ -19,6 +19,7 @@ class App extends Component {
       hasError: false,
       touched: false,
       name: "",
+      errormsg: "",
     },
     newNote: {
       name: {
@@ -62,6 +63,7 @@ class App extends Component {
         hasError: false,
         touched: true,
         name: name,
+        errormsg: "",
       },
     });
   };
@@ -93,6 +95,17 @@ class App extends Component {
   handleDeleteNote = (noteId) => {
     this.setState({
       notes: this.state.notes.filter((note) => note.id !== noteId),
+    });
+  };
+
+  setNewFolderError = (errormsg) => {
+    this.setState({
+      newFolder: {
+        touched: true,
+        name: this.state.newFolder.name,
+        hasError: true,
+        errormsg: errormsg,
+      },
     });
   };
 
@@ -133,6 +146,7 @@ class App extends Component {
       newNote: this.state.newNote,
       addNote: this.handleAddNote,
       updateNewNoteData: this.updateNewNoteData,
+      setNewFolderError: this.setNewFolderError,
     };
     return (
       <ApiContext.Provider value={value}>
