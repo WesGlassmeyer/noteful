@@ -29,8 +29,12 @@ export default class AddFolder extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const newFolder = event.target.newFolder.value;
-    this.addFolder(newFolder);
-    this.props.history.goBack();
+    let isValid = this.validateFolderName();
+    if (isValid) {
+      console.log(isValid);
+      this.addFolder(newFolder);
+      this.props.history.goBack();
+    }
   };
 
   updateFolderName(event) {
@@ -39,11 +43,11 @@ export default class AddFolder extends Component {
   }
 
   validateFolderName() {
-    if (this.context.newFolder.name.trim() === 0) {
-      return "Must be more than 0 characters.";
-    } else if (this.context.newFolder.name.trim().length <= 3) {
-      return "Must be more than 3 characters.";
+    if (this.context.newFolder.name.trim().length <= 3) {
+      this.context.setNewFolderError("Must be more than 3 characters.");
+      return false;
     }
+    return true;
   }
 
   render() {
@@ -58,9 +62,10 @@ export default class AddFolder extends Component {
           <label htmlFor="newFolder">
             {" "}
             Name{" "}
-            {this.context.newFolder.touched && (
-              <p>{this.validateFolderName()}</p>
-            )}
+            {this.context.newFolder.touched &&
+              this.context.newFolder.hasError && (
+                <p>{this.context.newFolder.errormsg}</p>
+              )}
           </label>
           <input
             type="text"
@@ -70,7 +75,7 @@ export default class AddFolder extends Component {
             aria-label="Name"
             onChange={(event) => this.updateFolderName(event)}
           />
-          <button type="submit" disabled={this.validateFolderName()}>
+          <button type="submit">Add Folder</button>
         </form>
       </>
     );
