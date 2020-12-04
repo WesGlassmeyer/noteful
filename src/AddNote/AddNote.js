@@ -114,7 +114,9 @@ export default class AddNote extends Component {
           >
             {this.renderFoldersList()}
           </select>
-          <button type="submit" disabled={this.validateDescription() && this.validateName()}
+          <button
+            type="submit"
+            disabled={this.validateDescription() && this.validateName()}
           >
             Submit
           </button>
