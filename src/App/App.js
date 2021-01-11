@@ -4,16 +4,17 @@ import NoteListNav from "../NoteListNav/NoteListNav";
 import NotePageNav from "../NotePageNav/NotePageNav";
 import NoteListMain from "../NoteListMain/NoteListMain";
 import NotePageMain from "../NotePageMain/NotePageMain";
-import dummyStore from "../dummy-store";
-import { getNotesForFolder, findNote, findFolder } from "../notes-helpers";
 import "./App.css";
+import AddFolder from "../AddFolder/AddFolder";
+import AddNote from "../AddNote/AddNote";
+import NotefulErrors from "../NotefulErrors";
+import ApiContext from "../ApiContext";
+import config from "../config";
 
 class App extends Component {
   state = {
     notes: [],
     folders: [],
-<<<<<<< Updated upstream
-=======
     newFolder: {
       hasError: false,
       touched: false,
@@ -34,15 +35,28 @@ class App extends Component {
         value: "",
       },
     },
->>>>>>> Stashed changes
   };
 
   componentDidMount() {
-    setTimeout(() => this.setState(dummyStore), 600);
+    Promise.all([
+      fetch(`${config.API_endpoint}/notes`),
+      fetch(`${config.API_endpoint}/folders`),
+    ])
+      .then(([notesRes, foldersRes]) => {
+        if (!notesRes.ok) return notesRes.json().then((e) => Promise.reject(e));
+        if (!foldersRes.ok)
+          return foldersRes.json().then((e) => Promise.reject(e));
+
+        return Promise.all([notesRes.json(), foldersRes.json()]);
+      })
+      .then(([notes, folders]) => {
+        this.setState({ notes, folders });
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
   }
 
-<<<<<<< Updated upstream
-=======
   updateNewFolderName = (name) => {
     this.setState({
       newFolder: {
@@ -95,83 +109,33 @@ class App extends Component {
     });
   };
 
->>>>>>> Stashed changes
   renderNavRoutes() {
-    const { notes, folders } = this.state;
     return (
       <>
-<<<<<<< Updated upstream
-        {["/", "/folder/:folderId"].map((path) => (
-          <Route
-            exact
-            key={path}
-            path={path}
-            render={(routeProps) => (
-              <NoteListNav folders={folders} notes={notes} {...routeProps} />
-            )}
-          />
-=======
         <Route path="/note/:noteid" component={NotePageNav} />
         <Route path="/add-folder" component={NotePageNav} />
         <Route path="/add-note" component={NotePageNav} />
         {["/", "/folder/:folderid"].map((path) => (
           <Route exact key={path} path={path} component={NoteListNav} />
->>>>>>> Stashed changes
         ))}
-        <Route
-          path="/note/:noteId"
-          render={(routeProps) => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId) || {};
-            const folder = findFolder(folders, note.folderId);
-            return <NotePageNav {...routeProps} folder={folder} />;
-          }}
-        />
-        <Route path="/add-folder" component={NotePageNav} />
-        <Route path="/add-note" component={NotePageNav} />
       </>
     );
   }
 
   renderMainRoutes() {
-    const { notes, folders } = this.state;
     return (
       <>
-<<<<<<< Updated upstream
-        {["/", "folder/:folderId"].map((path) => (
-          <Route
-            exact
-            key={path}
-            path={path}
-            render={(routeProps) => {
-              const { folderId } = routeProps.match.params;
-              const notesForFolder = getNotesForFolder(notes, folderId);
-              return <NoteListMain {...routeProps} notes={notesForFolder} />;
-            }}
-          />
-=======
         <Route path="/note/:noteid" component={NotePageMain} />
         <Route path="/add-folder" component={AddFolder} />
         <Route path="/add-note" component={AddNote} />
         {["/", "/folder/:folderid"].map((path) => (
           <Route exact key={path} path={path} component={NoteListMain} />
->>>>>>> Stashed changes
         ))}
-        <Route
-          path="/note/:noteId"
-          render={(routeProps) => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId);
-            return <NotePageMain {...routeProps} note={note} />;
-          }}
-        />
       </>
     );
   }
 
   render() {
-<<<<<<< Updated upstream
-=======
     const value = {
       notes: this.state.notes,
       folders: this.state.folders,
@@ -184,17 +148,20 @@ class App extends Component {
       updateNewNoteData: this.updateNewNoteData,
       setNewFolderError: this.setNewFolderError,
     };
->>>>>>> Stashed changes
     return (
-      <div className="App">
-        <nav className="App_nav">{this.renderNavRoutes()}</nav>
-        <header className="App_header">
-          <h1>
-            <Link to="/">Noteful</Link>
-          </h1>
-        </header>
-        <main className="App_main">{this.renderMainRoutes()}</main>
-      </div>
+      <ApiContext.Provider value={value}>
+        <div className="App">
+          <NotefulErrors>
+            <nav className="App_nav">{this.renderNavRoutes()}</nav>
+            <header className="App_header">
+              <h1>
+                <Link to="/">Noteful</Link>
+              </h1>
+            </header>
+            <main className="App_main">{this.renderMainRoutes()}</main>
+          </NotefulErrors>
+        </div>
+      </ApiContext.Provider>
     );
   }
 }

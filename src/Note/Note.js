@@ -1,23 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-//import { format } from "date-fns";
-//import "./Note.css";
+import PropTypes from "prop-types";
+import Moment from "moment";
+import ApiContext from "../ApiContext";
+import config from "../config";
+import "./Note.css";
 
-<<<<<<< Updated upstream
-export default function Note(props) {
-  return (
-    <div className="Note">
-      <h2 className="Note_title">
-        <Link to={`/note/${props.id}`}>{props.name}</Link>
-      </h2>
-      <button className="Note_delete" type="button">
-        {" "}
-        remove
-      </button>
-      <div className="Note_dates">
-        <div className="Note_dates-modified">
-          Modified <span className="Date">{props.modified}</span>
-=======
 export default class Note extends React.Component {
   static contextType = ApiContext;
 
@@ -66,20 +54,15 @@ export default class Note extends React.Component {
               {Moment(modified).format("MMM Do YYYY")}
             </span>
           </div>
->>>>>>> Stashed changes
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-<<<<<<< Updated upstream
-//<span className="Date">{format(props.modified, "do MMM yyyy")}</span>
-=======
 Note.propTypes = {
   onDeleteNote: PropTypes.func,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   modified: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 };
->>>>>>> Stashed changes
