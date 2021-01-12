@@ -25,7 +25,7 @@ export default class NotePageMain extends Component {
     return (
       <section className="NotePageMain">
         <Note
-          id={note.id}
+          id={noteid}
           name={note.name}
           modified={note.modified}
           onDeleteNote={this.handleDeleteNote}

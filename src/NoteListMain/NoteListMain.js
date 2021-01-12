@@ -15,6 +15,10 @@ export default class NoteListMain extends Component {
   };
   static contextType = ApiContext;
 
+  handleDeleteNote = () => {
+    this.props.history.push(`/`);
+  };
+
   render() {
     const { folderid } = this.props.match.params;
     const { notes = [] } = this.context;
@@ -28,7 +32,7 @@ export default class NoteListMain extends Component {
                 id={note.id}
                 name={note.name}
                 modified={note.modified}
-                onDeleteNote={this.onDeleteNote}
+                onDeleteNote={this.handleDeleteNote}
               />
             </li>
           ))}
