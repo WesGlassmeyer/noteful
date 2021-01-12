@@ -94,7 +94,7 @@ class App extends Component {
 
   handleDeleteNote = (noteid) => {
     this.setState({
-      notes: this.state.notes.filter((note) => note.id !== parseInt(noteid)),
+      notes: this.state.notes.filter((note) => note.id !== noteid),
     });
   };
 
